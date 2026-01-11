@@ -31,6 +31,21 @@ local hrp = character:WaitForChild("HumanoidRootPart")
 local PlaceId = game.PlaceId
 local JobId = game.JobId
 
+local REJOIN_CODE = [[
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/PhatLee877/Phatleechest/refs/heads/main/tp"))()
+]]
+
+pcall(function()
+    player.Kicked:Connect(function(reason)
+        warn("Bị kick | Lý do:", reason or "Unknown")
+
+        queue_on_teleport = REJOIN_CODE
+        task.wait(0.5)
+
+        TeleportService:Teleport(PlaceId, player)
+    end)
+end)
+
 -- ================== CONFIG ==================
 local CHEST_LIMIT = 25
 
